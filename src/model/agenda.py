@@ -8,12 +8,12 @@ listAgenda = [
 
 # Rota para obter todos 
 #@app.route('/agenda', methods=['GET'])
-def get_agenda():
+def get():
     return jsonify(listAgenda)
 
 # Rota para obter um item específico por ID
 #@app.route('/agenda/<int:item_id>', methods=['GET'])
-def get_agendaid(item_id):
+def getBy(item_id):
     item = next((item for item in listAgenda if item['id'] == item_id), None)
     if item:
         return jsonify(item)
@@ -21,7 +21,7 @@ def get_agendaid(item_id):
 
 # Rota para adicionar um novo item
 #@app.route('/agenda', methods=['POST'])
-def add_agenda():
+def post():
     new_item = request.json
     if not new_item or 'nome' not in new_item:
         return jsonify({"message": "Dados inválidos"}), 400
@@ -33,7 +33,7 @@ def add_agenda():
 
 # Rota para atualizar um item existente
 #@app.route('/agenda/<int:item_id>', methods=['PUT'])
-def update_agenda(item_id):
+def put(item_id):
     item_data = request.json
     item = next((item for item in listAgenda if item['id'] == item_id), None)
     if item:
@@ -43,7 +43,7 @@ def update_agenda(item_id):
 
 # Rota para deletar um item
 #@app.route('/agenda/<int:item_id>', methods=['DELETE'])
-def delete_agenda(item_id):
+def delete(item_id):
     global listAgenda # Permite modificar a lista global
     original_len = len(listAgenda)
     listAgenda = [item for item in listAgenda if item['id'] != item_id]

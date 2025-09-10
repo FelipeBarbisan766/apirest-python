@@ -7,21 +7,18 @@ items = [
 ]
 
 # Rota para obter todos os itens
-@app.route('/items', methods=['GET'])
-def get_items():
+def get():
     return jsonify(items)
 
 # Rota para obter um item específico por ID
-@app.route('/items/<int:item_id>', methods=['GET'])
-def get_item(item_id):
+def getBy(item_id):
     item = next((item for item in items if item['id'] == item_id), None)
     if item:
         return jsonify(item)
     return jsonify({"message": "Item não encontrado"}), 404
 
 # Rota para adicionar um novo item
-@app.route('/items', methods=['POST'])
-def add_item():
+def post():
     new_item = request.json
     if not new_item or 'name' not in new_item:
         return jsonify({"message": "Dados inválidos"}), 400
@@ -32,8 +29,7 @@ def add_item():
     return jsonify(new_item), 201
 
 # Rota para atualizar um item existente
-@app.route('/items/<int:item_id>', methods=['PUT'])
-def update_item(item_id):
+def put(item_id):
     item_data = request.json
     item = next((item for item in items if item['id'] == item_id), None)
     if item:
@@ -42,8 +38,7 @@ def update_item(item_id):
     return jsonify({"message": "Item não encontrado"}), 404
 
 # Rota para deletar um item
-@app.route('/items/<int:item_id>', methods=['DELETE'])
-def delete_item(item_id):
+def delete(item_id):
     global items # Permite modificar a lista global
     original_len = len(items)
     items = [item for item in items if item['id'] != item_id]

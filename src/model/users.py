@@ -10,12 +10,12 @@ listUsers = [
 
 # Rota para obter todos os itens
 #@app.route('/users', methods=['GET'])
-def get_users():
+def get():
     return jsonify(listUsers)
 
 # Rota para obter um item específico por ID
 #@app.route('/users/<int:item_id>', methods=['GET'])
-def get_userid(item_id):
+def getBy(item_id):
     item = next((item for item in listUsers if item['id'] == item_id), None)
     if item:
         return jsonify(item)
@@ -23,7 +23,7 @@ def get_userid(item_id):
 
 # Rota para adicionar um novo item
 #@app.route('/users', methods=['POST'])
-def add_user():
+def post():
     new_item = request.json
     if not new_item or 'login' not in new_item:
         return jsonify({"message": "Dados inválidos"}), 400
@@ -35,7 +35,7 @@ def add_user():
 
 # Rota para atualizar um item existente
 #@app.route('/users/<int:item_id>', methods=['PUT'])
-def update_user(item_id):
+def put(item_id):
     item_data = request.json
     item = next((item for item in listUsers if item['id'] == item_id), None)
     if item:
@@ -45,7 +45,7 @@ def update_user(item_id):
 
 # Rota para deletar um item
 #@app.route('/users/<int:item_id>', methods=['DELETE'])
-def delete_user(item_id):
+def delete(item_id):
     global listUsers # Permite modificar a lista global
     original_len = len(listUsers)
     listUsers = [item for item in listUsers if item['id'] != item_id]
