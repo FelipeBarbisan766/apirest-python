@@ -8,7 +8,7 @@ def testar_conexao():
         conn = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='mariadbrootPW'
+            password=''
         )
 
         # Se a conexão com o servidor for bem-sucedida
@@ -49,7 +49,8 @@ def testar_conexao():
 #     return str(results)
 
 # Chamada da função para testar
-if testar_conexao():
-    print("Você pode prosseguir com seu projeto!")
-else:
-    print("A conexão falhou. Verifique as credenciais ou a existência do banco de dados.")
+if __name__ == '__main__':
+    if testar_conexao():
+        print("Você pode prosseguir com seu projeto!")
+    else:
+        print("A conexão falhou. Verifique as credenciais ou a existência do banco de dados.")
